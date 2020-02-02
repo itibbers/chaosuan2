@@ -7,8 +7,8 @@
 
     "col_class": ["lon", "lat"],
     "history_class": [30],
-    "predict_class": [30, 120],
+    "predict_class": [30, 60, 90, 120, 150, 180],
 
-    "epochs": 10,
-    "batch_size": 240
+    "epochs": 20,
+    "batch_size": 400
 }
