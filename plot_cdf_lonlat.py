@@ -11,7 +11,7 @@ import json
 config = json.load(open('./config.json'))
 history_class = config['history_class']
 predict_class = config['predict_class']
-model_class = ['mlp_seq', 'lstm_standand', 'lstm_endecoder', 'lr', 'naive']
+model_class = ['lstm_endecoder', 'lstm_standand', 'mlp_seq', 'lr', 'naive']
 model_len = len(model_class)
 history_len = len(history_class)
 predict_len = len(predict_class)
@@ -25,7 +25,7 @@ for i in range(history_len):
     for j in range(predict_len):
         history_step = history_class[i]
         predict_step = predict_class[j]
-        params_name = 'h' + str(history_step) + 'p' + str(predict_step) + '_lon'
+        params_name = 'h' + str(history_step) + 'p' + str(predict_step) + '_lat'
         out_lon = []
         out_lat = []
         # 遍历模型
