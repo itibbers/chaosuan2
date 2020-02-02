@@ -11,7 +11,7 @@ import json
 config = json.load(open('./config.json'))
 history_class = config['history_class']
 predict_class = config['predict_class']
-model_class = ['lstm_endecoder', 'lstm_standand', 'mlp_seq', 'lr', 'naive']
+model_class = ['lstm_endecoder', 'lstm_standand', 'lstm_m2o', 'mlp_seq', 'lr', 'naive']
 model_len = len(model_class)
 history_len = len(history_class)
 predict_len = len(predict_class)
