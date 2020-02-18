@@ -34,7 +34,6 @@ for col_id in range(len(col_class)):
 
         for predict_id in range(len(predict_class)):
             predict_step = predict_class[predict_id]
-            print(predict_step)
 
             x = np.linspace(1,predict_step,predict_step)[:,np.newaxis] # 1~60 等分为60份 预测60个值
             model_class_name = 'video_{}_{}_h{}p{}_{}'.format(video_id, model_name, history_step, predict_step, col_name)
@@ -59,7 +58,7 @@ for col_id in range(len(col_class)):
                     y = model.predict(x) # 预测
 
                     # print(y_real.shape)
-                    print(len(y_test))
+                    # print(len(y_test))
                     y_test.extend(y_real)
                     y_predict.extend(y)
 
@@ -71,10 +70,6 @@ for col_id in range(len(col_class)):
                 output = np.vstack((y_test, y_predict))
                 output_path = './output/video_{}/{}/{}_h{}p{}_{}.csv'.format(video_id, user_id, model_name, history_step, predict_step, col_name)
                 save_data_without_header(output, output_path)
-
-
-
-
 
 
 

@@ -11,11 +11,13 @@ import json
 config = json.load(open('./config.json'))
 history_class = config['history_class']
 predict_class = config['predict_class']
-model_class = ['lstm_endecoder', 'lstm_standand', 'lstm_m2o', 'mlp_seq', 'lr', 'naive']
+#model_class = ['lstm_endecoder', 'lstm_standand', 'lstm_m2o', 'mlp_seq', 'lr', 'lr2', 'naive']
+model_class = ['lstm_m2o', 'mlp_seq', 'lr2', 'naive']
 model_len = len(model_class)
 history_len = len(history_class)
 predict_len = len(predict_class)
 video_id = config['video_id']
+col_name = config['col_class'][0]
 
 # 数据目录
 data_dir = './output/'
@@ -25,7 +27,7 @@ for i in range(history_len):
     for j in range(predict_len):
         history_step = history_class[i]
         predict_step = predict_class[j]
-        params_name = 'h' + str(history_step) + 'p' + str(predict_step) + '_lat'
+        params_name = 'h{}p{}_{}'.format(history_step, predict_step, col_name)
         out_lon = []
         out_lat = []
         # 遍历模型
@@ -64,27 +66,28 @@ for i in range(history_len):
             # 每个参数输出结果
             # out_lon.append(model_lon)
             out_lat.append(model_lat)
+            outdata = np.array(model_lat)
+            outdata = outdata.reshape(-1, 1)
+            out_path = '{}video_{}/cdf/csv/{}_{}.csv'.format(data_dir, video_id, model_name, params_name)
+            save_data_without_header(outdata, out_path)
 
-        out_path = data_dir + 'cdf/' + model_name + '/' + params_name + '.csv'
-        save_data(out_lat, out_path)
-
-        font = {
-            'family': 'Times New Roman',
-            'color': 'darkred',
-            'weight': 'normal',
-            'size': 16
-        }
-        for model_id in range(model_len):
-            model_name = model_class[model_id]
-            ecdf = sm.distributions.ECDF(out_lat[model_id])
-            x = np.linspace(0, 200)
-            y = ecdf(x)
-            plt.ylim((0.8, 1.0))
-            plt.plot(x, y, linewidth='1', label=model_name)
-            plt.xlabel('xxx', fontdict=font)
-            plt.ylabel('yyy', fontdict=font)
-            plt.title('ECDF ' + params_name, fontdict=font)
-            plt.legend(loc='upper right', shadow=True)
-        file_path = data_dir + 'cdf/' + params_name + '.png'
-        plt.savefig(file_path, dpi=200)
-        plt.show()
+        # font = {
+        #     'family': 'Times New Roman',
+        #     'color': 'darkred',
+        #     'weight': 'normal',
+        #     'size': 16
+        # }
+        # for model_id in range(model_len):
+        #     model_name = model_class[model_id]
+        #     ecdf = sm.distributions.ECDF(out_lat[model_id])
+        #     x = np.linspace(0, 200)
+        #     y = ecdf(x)
+        #     plt.ylim((0.8, 1.0))
+        #     plt.plot(x, y, linewidth='1', label=model_name)
+        #     plt.xlabel('xxx', fontdict=font)
+        #     plt.ylabel('yyy', fontdict=font)
+        #     plt.title('ECDF ' + params_name, fontdict=font)
+        #     plt.legend(loc='upper right', shadow=True)
+        # file_path = '{}video_{}/cdf/{}.png'.format(data_dir, video_id, params_name)
+        # plt.savefig(file_path, dpi=200)
+        # plt.show()

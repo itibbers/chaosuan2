@@ -1,13 +1,13 @@
 {
     "data_dir_lon_lat": "./data/data_lon_lat",
     "output_dir": "./output",
-    "user_num": 10,
+    "user_num": 48,
     "validate_percent": 0.8,
-    "video_id": 3,
+    "video_id": 7,
 
     "col_class": ["lon", "lat"],
     "history_class": [30],
-    "predict_class": [30, 60, 90, 120, 150, 180],
+    "predict_class": [30,60,90,120,150,180],
 
     "epochs": 20,
     "batch_size": 400

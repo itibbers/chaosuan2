@@ -49,7 +49,8 @@ def divide_data(data, time_step=20, predict_step=1):
     return [x_train, y_train]
 
 def save_data(data, file_path):
-        # file_path = 'outputs/output_{}.csv'.format(model_name)
+    print('Saving:', file_path)
+    # file_path = 'outputs/output_{}.csv'.format(model_name)
     if not os.path.exists(os.path.dirname(file_path)):
         try:
             os.makedirs(os.path.dirname(file_path))
